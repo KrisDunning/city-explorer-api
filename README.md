@@ -26,9 +26,9 @@ Estimate of time needed to complete: 95 min_
 
 Start time: _9:00pm
 
-Finish time: pm_
+Finish time:  11:20pm_
 
-Actual time needed to complete: _min
+Actual time needed to complete: _140min
 
 -----
 
