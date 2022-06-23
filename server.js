@@ -7,9 +7,12 @@ console.log('Our first server');
 const express= require('express');
 require('dotenv').config();
 const weatherData=require('./data/weather.json');
+const cors=require('cors');
+const axios=require('axios');
 // USE
 // once required, we must use it. where we assign required file a variable name
 const app=express();
+app.use(cors());
 //define port and validate dotevn file is working
 const PORT=process.env.PORTANDRE || 3002;
 
@@ -18,18 +21,22 @@ const PORT=process.env.PORTANDRE || 3002;
 //we use these to access endpoints
 // .get is an express method that correlates to axios.get    prameters(url,callbackfunction)
 app.get('/', (request,response)=>{
-  response.send("Hello from the other side!");
+    response.send("Hello from the other side!");
 });
+
+class Forecast{
+  constructor(weatherObj){
+    console.log("This :" ,weatherObj.datetime,weatherObj.weather.description);
+    this.datetime=weatherObj.datetime;
+    this.description=weatherObj.weather.description;
+  }
+}
+
 app.get('/weather',(request,response)=>{
-  // let queryCity=request.query.city;
-  // console.log(queryCity);
-  // let queryLat=request.query.lat;
-  // console.log(queryLat);
-  // let queryLon=request.query.lon;
-  // console.log(queryLon);
-let dataToSend=weatherData.find(data=> data.city_name===request.query.city);
-response.send(dataToSend);
-response.send("test of weather route");
+let dataToSend=weatherData.find(data=> data.city_name.toLowerCase()===request.query.searchQuery.toLowerCase());
+let returnData = dataToSend.data.map(day=> new Forecast(day)); 
+response.status(200).send(returnData);
+//response.send("test of weather route");
 });
 //catchall route response
 app.get('*', (request,response)=>{
@@ -39,7 +46,10 @@ app.get('*', (request,response)=>{
 
 //ERRORS
 //handle any errors
-
+app.use((error,request,response,next)=>{
+  console.log(error.message);
+  response.status(500).send(error.message);
+});
 //LISTEN
 //start server and server listens
 // .listen is express method that takes port value and callback function
