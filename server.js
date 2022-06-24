@@ -20,8 +20,9 @@ const PORT=process.env.PORTANDRE || 3002;
 //we use these to access endpoints
 // .get is an express method that correlates to axios.get    prameters(url,callbackfunction)
 app.get('/', (request,response)=>{
-  response.send("Hello from the other side!");
+    response.send("Hello from the other side!");
 });
+
 app.get('/weather',getWeather);
 app.get('/movies',getMovies);
 app.get('*', (request,response)=>{
@@ -30,7 +31,10 @@ app.get('*', (request,response)=>{
 
 //ERRORS
 //handle any errors
-
+app.use((error,request,response,next)=>{
+  console.log(error.message);
+  response.status(500).send(error.message);
+});
 //LISTEN
 //start server and server listens
 // .listen is express method that takes port value and callback function
