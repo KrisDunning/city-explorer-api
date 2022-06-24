@@ -3,17 +3,16 @@
 console.log('Our first server');
 
 // REQUIRE
-// we have to use required instead of import.
+const cors= require('cors');
 const express= require('express');
+const axios= require('axios');
+const getWeather=require('./Modules/weather.js');
+const getMovies = require('./Modules/movies.js');
 require('dotenv').config();
-const weatherData=require('./data/weather.json');
-const cors=require('cors');
-const axios=require('axios');
+
 // USE
-// once required, we must use it. where we assign required file a variable name
 const app=express();
 app.use(cors());
-//define port and validate dotevn file is working
 const PORT=process.env.PORTANDRE || 3002;
 
 
@@ -24,25 +23,11 @@ app.get('/', (request,response)=>{
     response.send("Hello from the other side!");
 });
 
-class Forecast{
-  constructor(weatherObj){
-    console.log("This :" ,weatherObj.datetime,weatherObj.weather.description);
-    this.datetime=weatherObj.datetime;
-    this.description=weatherObj.weather.description;
-  }
-}
-
-app.get('/weather',(request,response)=>{
-let dataToSend=weatherData.find(data=> data.city_name.toLowerCase()===request.query.searchQuery.toLowerCase());
-let returnData = dataToSend.data.map(day=> new Forecast(day)); 
-response.status(200).send(returnData);
-//response.send("test of weather route");
-});
-//catchall route response
+app.get('/weather',getWeather);
+app.get('/movies',getMovies);
 app.get('*', (request,response)=>{
   response.send("The page you are looking for doesn't exist");
 });
-
 
 //ERRORS
 //handle any errors
