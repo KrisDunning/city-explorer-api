@@ -23,8 +23,34 @@ app.get('/', (request,response)=>{
     response.send("Hello from the other side!");
 });
 
-app.get('/weather',getWeather);
-app.get('/movies',getMovies);
+app.get('/weather', weatherHandler);
+
+function weatherHandler(request, response) {
+  const lat= request.querylat;
+  const lon= request.query.lon;
+  getWeather(lat, lon)
+  .then(summaries => response.send(summaries))
+  .catch((error) => {
+    console.error(error);
+    response.status(404).send('Sorry. Something went wrong!')
+  });
+}  
+
+app.get('/movies',movieHandler);
+
+function movieHandler(request, response) {
+  const city = request.query.city;
+  getMovies(city)
+    .then(summaries => response.send(summaries))
+    .catch((error) => {
+      console.error(error);
+      response.status(404).send('Sorry. Trouble getting movies!');
+    });
+}
+
+
+
+
 app.get('*', (request,response)=>{
   response.send("The page you are looking for doesn't exist");
 });
