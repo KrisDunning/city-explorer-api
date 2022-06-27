@@ -7,7 +7,7 @@ module.exports = getWeather;
 
 function getWeather(latitude, longitude) {
   const key = 'weather-' + latitude + longitude;
-  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WeatherAPIKEY}&lat=${lat}&lon=${lon}&days=3`;
+  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WeatherAPIKEY}&lat=${latitude}&lon=${longitude}&days=3&units=I`;
 
   if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
     console.log('Cache hit');
@@ -39,31 +39,3 @@ class Weather {
     this.time = day.datetime;
   }
 }
-
-
-
-
-// class Forecast {
-  //   constructor(wxObj) {
-    //     this.datetime = wxObj.datetime;
-    //     this.description = wxObj.description;
-    //   };
-    // }
-    
-    // async function getWeather(request, response) {
-      //   console.log('Lat & Lon: ', request.query.lat, request.query.lon);
-      //   let weatherURL = `http://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WeatherAPIKEY}&lat=${request.query.lat}&lon=${request.query.lon}&units=I&days=3`;
-      //   console.log(weatherURL);
-//   try {
-  //     let returnedWeather = await axios.get(weatherURL);
-  //     returnedWeather = returnedWeather.data.data;
-  //     let wxArray = returnedWeatherData.map(day => new Forecast(day));
-  //     console.log('WXArray: ', wxArray);
-  //     response.status(200).send(returnedWeather);
-  //   } catch (error) {
-    //     response.status(500).send(error);
-    //   }
-    // };
-    // module.exports = getWeather;
-    
-    

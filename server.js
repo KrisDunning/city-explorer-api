@@ -17,8 +17,6 @@ const PORT=process.env.PORTANDRE || 3002;
 
 
 // ROUTES
-//we use these to access endpoints
-// .get is an express method that correlates to axios.get    prameters(url,callbackfunction)
 app.get('/', (request,response)=>{
     response.send("Hello from the other side!");
 });
@@ -26,7 +24,7 @@ app.get('/', (request,response)=>{
 app.get('/weather', weatherHandler);
 
 function weatherHandler(request, response) {
-  const lat= request.querylat;
+  const lat= request.query.lat;
   const lon= request.query.lon;
   getWeather(lat, lon)
   .then(summaries => response.send(summaries))
