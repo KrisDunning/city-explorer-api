@@ -15,16 +15,16 @@ Change Log
 
 ## Credit and Collaborations
 Dennis Devries collaborator on Monday WRRC.
-![Monday Whiteboard](src/whiteboardOne.png)
+![Monday Whiteboard](whiteboardOne.png)
 
 Marvin Bonds collaborator on Tuesday WRRC.
-![Tuesday whiteboard](src/whiteboardTwo.png)
+![Tuesday whiteboard](whiteboardTwo.png)
 
 KC Hofstetter collaborator on Thursday WRRC
-![Thursday Miro Board](src/thursMiroBoard.jpeg)
+![Thursday Miro Board](thursMiroBoard.jpeg)
 
 Ricky Plaza collaborator for Friday WRRC
-![Friday Miro Board](src/thursMiroBoard.jpeg)
+![Friday Miro Board](thursMiroBoard.jpeg)
 
 Time Estimates For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
